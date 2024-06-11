@@ -18,10 +18,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
-    height: 100,
+    height: 90,
   },
   headerTitle: {
     fontWeight: "bold",
+    fontSize: 18,
   },
   logo: {
     width: 35,
