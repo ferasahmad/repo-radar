@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   list: {
-    marginHorizontal: 25,
+    paddingHorizontal: 25,
   },
   loadingIndicator: {
     alignSelf: "center",
