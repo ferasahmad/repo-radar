@@ -1,6 +1,14 @@
-# Welcome to your Expo app 👋
+# Welcome to your RepoRadar 👋
+
+Place to look up your favorite github repos.
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+
+## Screenshots
+
+<img width="300" alt="Screenshot 2024-06-11 at 4 38 42 PM" src="https://github.com/ferasahmad/repo-radar/assets/44070373/8d7ba2aa-4c7b-4e66-a7d7-def441e4b9d6">
+<img width="300" alt="Screenshot 2024-06-11 at 4 38 57 PM" src="https://github.com/ferasahmad/repo-radar/assets/44070373/7112c051-2972-45bb-b378-ec9fcfdbf922">
+
 
 ## Get started
 
@@ -23,17 +31,6 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
 ## Learn more
 
