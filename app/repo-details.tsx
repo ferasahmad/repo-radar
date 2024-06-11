@@ -8,7 +8,7 @@ import {
   Linking,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { Repo } from "@/types";
+import { ScreenStatus, Repo } from "@/types";
 import GenericContainer from "@/components/GenericContainer";
 import Divider from "@/components/Divider";
 import { colors } from "@/constants/colors";
@@ -17,17 +17,11 @@ import RepoDetail from "@/components/RepoDetail";
 import LoadingScreen from "@/components/LoadingScreen";
 import Button from "@/components/Button";
 
-enum Status {
-  Loading = "loading",
-  Error = "error",
-  Success = "success",
-}
-
 const RepoDetails: React.FC = () => {
   const { repo } = useLocalSearchParams();
   const data: Repo = JSON.parse(repo as string);
   const [languages, setLanguages] = useState<string[] | null>(null);
-  const [status, setStatus] = useState<Status>(Status.Loading);
+  const [status, setStatus] = useState<ScreenStatus>(ScreenStatus.Loading);
 
   useEffect(() => {
     const getLanguages = async () => {
@@ -35,10 +29,10 @@ const RepoDetails: React.FC = () => {
         const languagesData = await fetchRepoLanguages(data.languages_url);
         const languageKeys = Object.keys(languagesData);
         setLanguages(languageKeys);
-        setStatus(Status.Success);
+        setStatus(ScreenStatus.Success);
       } catch (error) {
         console.error("Error fetching languages:", error);
-        setStatus(Status.Error);
+        setStatus(ScreenStatus.Error);
       }
     };
 
@@ -51,11 +45,11 @@ const RepoDetails: React.FC = () => {
 
   return (
     <GenericContainer style={styles.container}>
-      {status === Status.Loading && <LoadingScreen />}
-      {status === Status.Error && (
+      {status === ScreenStatus.Loading && <LoadingScreen />}
+      {status === ScreenStatus.Error && (
         <Text style={styles.errorText}>Failed to load page.</Text>
       )}
-      {status === Status.Success && languages && (
+      {status === ScreenStatus.Success && languages && (
         <>
           <ScrollView>
             <View style={styles.header}>

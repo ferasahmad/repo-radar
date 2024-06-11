@@ -12,31 +12,25 @@ import { debounce } from "../utilities/debounce";
 import Header from "@/components/Header";
 import RepoItem from "@/components/RepoItem";
 import SearchInput from "@/components/SearchInput";
-import { Repo } from "@/types";
+import { ScreenStatus, Repo } from "@/types";
 import LoadingScreen from "@/components/LoadingScreen";
 import GenericContainer from "@/components/GenericContainer";
-
-enum Status {
-  Loading = "loading",
-  Error = "error",
-  Success = "success",
-}
 
 const Index: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [repos, setRepos] = useState<Repo[]>([]);
-  const [status, setStatus] = useState<Status>();
+  const [status, setStatus] = useState<ScreenStatus>();
 
   const handleSearch = useCallback(
     debounce(async (query: string) => {
       if (query.length > 0) {
-        setStatus(Status.Loading);
+        setStatus(ScreenStatus.Loading);
         try {
           const results = await fetchRepos(query);
           setRepos(results);
-          setStatus(Status.Success);
+          setStatus(ScreenStatus.Success);
         } catch (err) {
-          setStatus(Status.Error);
+          setStatus(ScreenStatus.Error);
         }
       } else {
         setRepos([]);
@@ -56,11 +50,11 @@ const Index: React.FC = () => {
         <SearchInput query={query} setQuery={setQuery} />
       </View>
       <View style={styles.content}>
-        {status === Status.Loading && <LoadingScreen />}
-        {status === Status.Error && (
+        {status === ScreenStatus.Loading && <LoadingScreen />}
+        {status === ScreenStatus.Error && (
           <Text style={styles.errorText}>Failed to fetch repositories</Text>
         )}
-        {status === Status.Success && (
+        {status === ScreenStatus.Success && (
           <FlatList
             style={styles.list}
             data={repos}

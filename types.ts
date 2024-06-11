@@ -12,3 +12,9 @@ export type Repo = {
   languages_url: string;
   html_url: string;
 };
+
+export enum ScreenStatus {
+  Loading = "loading",
+  Error = "error",
+  Success = "success",
+}
