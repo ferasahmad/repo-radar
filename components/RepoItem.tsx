@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../constants/colors";
 import { Repo } from "@/types";
+import RepoTitle from "./RepoTitle";
 
 interface RepoItemProps {
   repo: Repo;
@@ -9,13 +10,13 @@ interface RepoItemProps {
 
 const RepoItem: React.FC<RepoItemProps> = ({ repo }) => {
   return (
-    <View style={styles.repoItem}>
+    <View style={styles.container}>
       <View style={styles.iconAndNameContainer}>
         <Image
           style={styles.ownerIcon}
           source={{ uri: repo.owner.avatar_url }}
         />
-        <Text style={styles.repoName}>{repo.full_name}</Text>
+        <RepoTitle fullName={repo.full_name} fontSize={15} />
       </View>
       <Text style={styles.repoDescription}>{repo.description}</Text>
     </View>
@@ -23,11 +24,12 @@ const RepoItem: React.FC<RepoItemProps> = ({ repo }) => {
 };
 
 const styles = StyleSheet.create({
-  repoItem: {
+  container: {
     backgroundColor: colors.white,
     borderRadius: 10,
     marginBottom: 20,
     padding: 16,
+    gap: 10,
     shadowColor: colors.gray,
     shadowOffset: { width: 0, height: 0.5 },
     shadowOpacity: 0.15,
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   repoDescription: {
-    marginTop: 4,
+    color: colors.darkGray,
   },
 });
 

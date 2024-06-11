@@ -16,6 +16,7 @@ import { fetchRepoLanguages } from "../api/githubApi";
 import RepoDetail from "@/components/RepoDetail";
 import LoadingScreen from "@/components/LoadingScreen";
 import Button from "@/components/Button";
+import RepoTitle from "@/components/RepoTitle";
 
 const RepoDetails: React.FC = () => {
   const { repo } = useLocalSearchParams();
@@ -59,7 +60,7 @@ const RepoDetails: React.FC = () => {
                   source={{ uri: data.owner.avatar_url }}
                 />
               </View>
-              <Text style={styles.repoName}>{data.full_name}</Text>
+              <RepoTitle fullName={data.full_name} fontSize={22} />
               <View style={styles.detailsContainer}>
                 <RepoDetail
                   icon={require("../assets/images/eye.png")}
