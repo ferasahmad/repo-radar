@@ -17,4 +17,5 @@ export enum ScreenStatus {
   Loading = "loading",
   Error = "error",
   Success = "success",
+  Idle = "idle",
 }

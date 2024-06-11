@@ -5,7 +5,7 @@ const Header: React.FC = ({}) => {
     <View style={styles.header}>
       <Image
         style={styles.logo}
-        source={require("../assets/images/github.png")}
+        source={require("../assets/images/repo-radar-logo.png")}
       />
       <Text style={styles.headerTitle}>GitHub Repo Search</Text>
     </View>
@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   logo: {
-    width: 35,
+    width: 40,
+    height: 40,
     marginRight: 10,
-    height: 35,
+    tintColor: "black",
   },
 });
 

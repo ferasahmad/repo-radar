@@ -4,6 +4,7 @@ import {
   Text,
   FlatList,
   StyleSheet,
+  Image,
   TouchableOpacity,
 } from "react-native";
 import { router } from "expo-router";
@@ -19,7 +20,7 @@ import GenericContainer from "@/components/GenericContainer";
 const Index: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [repos, setRepos] = useState<Repo[]>([]);
-  const [status, setStatus] = useState<ScreenStatus>();
+  const [status, setStatus] = useState<ScreenStatus>(ScreenStatus.Idle);
 
   const handleSearch = useCallback(
     debounce(async (query: string) => {
@@ -34,6 +35,7 @@ const Index: React.FC = () => {
         }
       } else {
         setRepos([]);
+        setStatus(ScreenStatus.Idle);
       }
     }, 500),
     []
@@ -50,6 +52,14 @@ const Index: React.FC = () => {
         <SearchInput query={query} setQuery={setQuery} />
       </View>
       <View style={styles.content}>
+        {status === ScreenStatus.Idle && (
+          <View style={styles.logoContainer}>
+            <Image
+              style={styles.logo}
+              source={require("../assets/images/repo-radar-logo.png")}
+            />
+          </View>
+        )}
         {status === ScreenStatus.Loading && <LoadingScreen />}
         {status === ScreenStatus.Error && (
           <Text style={styles.errorText}>Failed to fetch repositories</Text>
@@ -95,8 +105,16 @@ const styles = StyleSheet.create({
   errorText: {
     alignSelf: "center",
   },
-  idleText: {
-    alignSelf: "center",
+  logoContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexGrow: 1,
+  },
+  logo: {
+    height: 300,
+    width: 300,
+    opacity: 0.1,
   },
 });
 
