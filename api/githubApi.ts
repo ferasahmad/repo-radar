@@ -1,10 +1,9 @@
 import axios from "axios";
-import { GITHUB_TOKEN } from "@env";
 
 const apiClient = axios.create({
   baseURL: "https://api.github.com",
   headers: {
-    Authorization: `token ${GITHUB_TOKEN}`,
+    Authorization: `token ${process.env.GITHUB_TOKEN}`,
   },
 });
 
