@@ -53,10 +53,12 @@ const RepoDetails: React.FC = () => {
         <>
           <ScrollView>
             <View style={styles.header}>
-              <Image
-                style={styles.ownerIcon}
-                source={{ uri: data.owner.avatar_url }}
-              />
+              <View style={styles.iconContainer}>
+                <Image
+                  style={styles.ownerIcon}
+                  source={{ uri: data.owner.avatar_url }}
+                />
+              </View>
               <Text style={styles.repoName}>{data.full_name}</Text>
               <View style={styles.detailsContainer}>
                 <RepoDetail
@@ -77,7 +79,7 @@ const RepoDetails: React.FC = () => {
             <View style={styles.descriptionAndLanguages}>
               <Text style={styles.description}>{data.description}</Text>
               <View>
-                <Text style={styles.languagesTitle}>Languages Used:</Text>
+                <Text style={styles.languagesTitle}>Languages</Text>
                 {languages.length > 0 ? (
                   languages.map((language) => (
                     <Text key={language} style={styles.language}>
@@ -85,9 +87,7 @@ const RepoDetails: React.FC = () => {
                     </Text>
                   ))
                 ) : (
-                  <Text style={styles.noLanguagesText}>
-                    No languages available
-                  </Text>
+                  <Text style={styles.noLanguagesText}>No languages used</Text>
                 )}
               </View>
             </View>
@@ -110,6 +110,17 @@ const styles = StyleSheet.create({
     gap: 20,
     padding: 25,
     paddingTop: 0,
+  },
+  iconContainer: {
+    borderRadius: 50,
+    height: 70,
+    width: 70,
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 0.5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+    elevation: 2,
+    backgroundColor: colors.white,
   },
   ownerIcon: {
     height: 70,

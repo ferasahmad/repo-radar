@@ -28,6 +28,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
     padding: 16,
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 0.5 },
+    shadowOpacity: 0.15,
+    shadowRadius: 0.5,
+    elevation: 2,
   },
   ownerIcon: {
     height: 30,

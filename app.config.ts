@@ -1,6 +1,6 @@
 export default {
   expo: {
-    name: "repo-radar",
+    name: "Repo Radar",
     slug: "repo-radar",
     version: "1.0.0",
     orientation: "portrait",
