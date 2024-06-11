@@ -5,8 +5,7 @@ Place to look up your favorite github repos.
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Screenshots
-
-<img width="300" alt="Screenshot 2024-06-11 at 4 38 42 PM" src="https://github.com/ferasahmad/repo-radar/assets/44070373/8d7ba2aa-4c7b-4e66-a7d7-def441e4b9d6">
+<img width="300" alt="Screenshot 2024-06-11 at 4 52 10 PM" src="https://github.com/ferasahmad/repo-radar/assets/44070373/521bbf83-1439-4eab-8191-373bb3e00ffd">
 <img width="300" alt="Screenshot 2024-06-11 at 4 38 57 PM" src="https://github.com/ferasahmad/repo-radar/assets/44070373/7112c051-2972-45bb-b378-ec9fcfdbf922">
 
 
