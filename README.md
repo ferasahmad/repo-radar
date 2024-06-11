@@ -6,7 +6,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 ## Screenshots
 <img width="300" alt="Screenshot 2024-06-11 at 4 52 10 PM" src="https://github.com/ferasahmad/repo-radar/assets/44070373/521bbf83-1439-4eab-8191-373bb3e00ffd">
-<img width="300" alt="Screenshot 2024-06-11 at 4 38 57 PM" src="https://github.com/ferasahmad/repo-radar/assets/44070373/7112c051-2972-45bb-b378-ec9fcfdbf922">
+<img width="300" alt="Screenshot 2024-06-11 at 4 53 12 PM" src="https://github.com/ferasahmad/repo-radar/assets/44070373/b988b990-4303-4015-8944-a61d641382f5">
 
 
 ## Get started
