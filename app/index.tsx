@@ -5,18 +5,16 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  ActivityIndicator,
 } from "react-native";
-import { useNavigation } from "expo-router";
+import { router } from "expo-router";
 import { fetchRepos } from "../api/githubApi";
 import { debounce } from "../utilities/debounce";
-import { colors } from "../constants/colors";
-import { LinearGradient } from "expo-linear-gradient";
 import Header from "@/components/Header";
 import RepoItem from "@/components/RepoItem";
 import SearchInput from "@/components/SearchInput";
 import { Repo } from "@/types";
 import LoadingScreen from "@/components/LoadingScreen";
+import GenericContainer from "@/components/GenericContainer";
 
 enum Status {
   Loading = "loading",
@@ -24,11 +22,10 @@ enum Status {
   Success = "success",
 }
 
-export default function Index() {
+const Index: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [repos, setRepos] = useState<Repo[]>([]);
   const [status, setStatus] = useState<Status>();
-  const navigation = useNavigation();
 
   const handleSearch = useCallback(
     debounce(async (query: string) => {
@@ -52,48 +49,42 @@ export default function Index() {
     handleSearch(query);
   }, [query, handleSearch]);
 
-  const renderContent = () => {
-    switch (status) {
-      case Status.Loading:
-        return <LoadingScreen />;
-      case Status.Error:
-        return (
+  return (
+    <GenericContainer>
+      <View style={styles.HeaderAndSearchContainer}>
+        <Header />
+        <SearchInput query={query} setQuery={setQuery} />
+      </View>
+      <View style={styles.content}>
+        {status === Status.Loading && <LoadingScreen />}
+        {status === Status.Error && (
           <Text style={styles.errorText}>Failed to fetch repositories</Text>
-        );
-      case Status.Success:
-        return (
+        )}
+        {status === Status.Success && (
           <FlatList
             style={styles.list}
             data={repos}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  router.push({
+                    pathname: "/repo-details",
+                    params: { repo: JSON.stringify(item) },
+                  })
+                }
+              >
                 <RepoItem repo={item} />
               </TouchableOpacity>
             )}
           />
-        );
-    }
-  };
-
-  return (
-    <LinearGradient
-      colors={[colors.pink, colors.white]}
-      style={styles.container}
-    >
-      <View style={styles.HeaderAndSearchContainer}>
-        <Header />
-        <SearchInput query={query} setQuery={setQuery} />
+        )}
       </View>
-      <View style={styles.content}>{renderContent()}</View>
-    </LinearGradient>
+    </GenericContainer>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   content: {
     flex: 1,
     marginTop: 20,
@@ -114,3 +105,5 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 });
+
+export default Index;

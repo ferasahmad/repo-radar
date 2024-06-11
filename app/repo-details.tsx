@@ -1,30 +1,166 @@
-import { Text, View, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
+import React, { useState, useEffect } from "react";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Linking,
+} from "react-native";
+import { useLocalSearchParams } from "expo-router";
 import { Repo } from "@/types";
+import GenericContainer from "@/components/GenericContainer";
+import Divider from "@/components/Divider";
+import { colors } from "@/constants/colors";
+import { fetchRepoLanguages } from "../api/githubApi";
+import RepoDetail from "@/components/RepoDetail";
+import LoadingScreen from "@/components/LoadingScreen";
+import Button from "@/components/Button";
 
-export default function RepoScreen() {
-  const { repo } = route.params as { repo: Repo };
+enum Status {
+  Loading = "loading",
+  Error = "error",
+  Success = "success",
+}
+
+const RepoDetails: React.FC = () => {
+  const { repo } = useLocalSearchParams();
+  const data: Repo = JSON.parse(repo as string);
+  const [languages, setLanguages] = useState<string[] | null>(null);
+  const [status, setStatus] = useState<Status>(Status.Loading);
+
+  useEffect(() => {
+    const getLanguages = async () => {
+      try {
+        const languagesData = await fetchRepoLanguages(data.languages_url);
+        const languageKeys = Object.keys(languagesData);
+        setLanguages(languageKeys);
+        setStatus(Status.Success);
+      } catch (error) {
+        console.error("Error fetching languages:", error);
+        setStatus(Status.Error);
+      }
+    };
+
+    getLanguages();
+  }, [data.languages_url]);
+
+  const handlePress = () => {
+    Linking.openURL(data.html_url);
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Repository Details</Text>
-      <Text style={styles.info}>Repository ID: {repo.id}</Text>
-    </View>
+    <GenericContainer style={styles.container}>
+      {status === Status.Loading && <LoadingScreen />}
+      {status === Status.Error && (
+        <Text style={styles.errorText}>Failed to load page.</Text>
+      )}
+      {status === Status.Success && languages && (
+        <>
+          <ScrollView>
+            <View style={styles.header}>
+              <Image
+                style={styles.ownerIcon}
+                source={{ uri: data.owner.avatar_url }}
+              />
+              <Text style={styles.repoName}>{data.full_name}</Text>
+              <View style={styles.detailsContainer}>
+                <RepoDetail
+                  icon={require("../assets/images/eye.png")}
+                  value={data.watchers}
+                />
+                <RepoDetail
+                  icon={require("../assets/images/repo-forked.png")}
+                  value={data.forks}
+                />
+                <RepoDetail
+                  icon={require("../assets/images/star.png")}
+                  value={data.stargazers_count}
+                />
+              </View>
+            </View>
+            <Divider />
+            <View style={styles.descriptionAndLanguages}>
+              <Text style={styles.description}>{data.description}</Text>
+              <View>
+                <Text style={styles.languagesTitle}>Languages Used:</Text>
+                {languages.length > 0 ? (
+                  languages.map((language) => (
+                    <Text key={language} style={styles.language}>
+                      {language}
+                    </Text>
+                  ))
+                ) : (
+                  <Text style={styles.noLanguagesText}>
+                    No languages available
+                  </Text>
+                )}
+              </View>
+            </View>
+          </ScrollView>
+          <View style={styles.buttonContainer}>
+            <Button title="Go to Repo" onPress={handlePress} />
+          </View>
+        </>
+      )}
+    </GenericContainer>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    position: "relative",
   },
-  title: {
-    fontSize: 24,
+  header: {
+    gap: 20,
+    padding: 25,
+  },
+  ownerIcon: {
+    height: 70,
+    width: 70,
+    borderRadius: 50,
+  },
+  repoName: {
+    fontSize: 22,
     fontWeight: "bold",
+    color: colors.darkGray,
   },
-  info: {
+  detailsContainer: {
+    flexDirection: "row",
+    width: "100%",
+    gap: 15,
+  },
+  descriptionAndLanguages: {
+    padding: 25,
+    gap: 20,
+  },
+  description: {
     fontSize: 18,
-    marginTop: 10,
+    color: colors.darkGray,
+  },
+  languagesTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  language: {
+    fontSize: 16,
+    color: colors.darkGray,
+  },
+  noLanguagesText: {
+    fontSize: 16,
+    color: colors.gray,
+  },
+  errorText: {
+    alignSelf: "center",
+  },
+  buttonContainer: {
+    padding: 20,
+    marginTop: "auto",
+    position: "static",
+    bottom: 0,
   },
 });
+
+export default RepoDetails;
