@@ -1,17 +1,6 @@
 import axios from "axios";
-import Constants from "expo-constants";
 
-type ExpoConfig = {
-  extra?: {
-    githubKey?: string;
-  };
-};
-
-const { githubKey } = (Constants.expoConfig as ExpoConfig)?.extra ?? {};
-
-if (!githubKey) {
-  throw new Error("GitHub API key is not defined in expo constants.");
-}
+const githubKey = process.env.EXPO_PUBLIC_GITHUB_TOKEN;
 
 const apiClient = axios.create({
   baseURL: "https://api.github.com",
