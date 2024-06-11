@@ -7,7 +7,6 @@ interface SearchInputProps {
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({ query, setQuery }) => {
-  console.log(process.env.GITHUB_TOKEN);
   return (
     <View style={styles.container}>
       <Image
