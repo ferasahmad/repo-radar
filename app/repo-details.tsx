@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   header: {
     gap: 20,
     padding: 25,
+    paddingTop: 0,
   },
   ownerIcon: {
     height: 70,
