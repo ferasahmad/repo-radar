@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   detailText: {
     color: colors.gray,
     fontWeight: "500",
-    fontSize: 14,
+    fontSize: 12,
   },
 });
 

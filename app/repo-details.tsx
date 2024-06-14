@@ -60,7 +60,7 @@ const RepoDetails: React.FC = () => {
                   source={{ uri: data.owner.avatar_url }}
                 />
               </View>
-              <RepoTitle fullName={data.full_name} fontSize={22} />
+              <RepoTitle fullName={data.full_name} fontSize={18} />
               <View style={styles.detailsContainer}>
                 <RepoDetail
                   icon={require("../assets/images/eye.png")}
@@ -143,20 +143,20 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   description: {
-    fontSize: 18,
+    fontSize: 14,
     color: colors.darkGray,
   },
   languagesTitle: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "bold",
     marginBottom: 10,
   },
   language: {
-    fontSize: 16,
+    fontSize: 14,
     color: colors.darkGray,
   },
   noLanguagesText: {
-    fontSize: 16,
+    fontSize: 14,
     color: colors.gray,
   },
   errorText: {

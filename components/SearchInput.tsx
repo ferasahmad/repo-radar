@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     flexGrow: 1,
+    fontSize: 14,
   },
 });
 

@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 14,
   },
   logo: {
-    width: 40,
-    height: 40,
+    width: 39.85,
+    height: 39.18,
     marginRight: 10,
     tintColor: "black",
   },

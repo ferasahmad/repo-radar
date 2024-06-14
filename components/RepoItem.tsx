@@ -16,7 +16,7 @@ const RepoItem: React.FC<RepoItemProps> = ({ repo }) => {
           style={styles.ownerIcon}
           source={{ uri: repo.owner.avatar_url }}
         />
-        <RepoTitle fullName={repo.full_name} fontSize={15} />
+        <RepoTitle fullName={repo.full_name} fontSize={14} />
       </View>
       <Text style={styles.repoDescription}>{repo.description}</Text>
     </View>
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   },
   repoDescription: {
     color: colors.darkGray,
+    fontSize: 14,
   },
 });
 
