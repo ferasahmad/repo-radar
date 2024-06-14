@@ -19,7 +19,7 @@ import Button from "@/components/Button";
 import RepoTitle from "@/components/RepoTitle";
 
 const RepoDetails: React.FC = () => {
-  const { repo } = useLocalSearchParams();
+  const { repo, searchValue } = useLocalSearchParams();
   const data: Repo = JSON.parse(repo as string);
   const [languages, setLanguages] = useState<string[] | null>(null);
   const [status, setStatus] = useState<ScreenStatus>(ScreenStatus.Loading);
@@ -44,6 +44,10 @@ const RepoDetails: React.FC = () => {
     Linking.openURL(data.html_url);
   };
 
+  const normalizedSearchValue = Array.isArray(searchValue)
+    ? searchValue[0]
+    : searchValue || "";
+
   return (
     <GenericContainer style={styles.container}>
       {status === ScreenStatus.Loading && <LoadingScreen />}
@@ -60,7 +64,11 @@ const RepoDetails: React.FC = () => {
                   source={{ uri: data.owner.avatar_url }}
                 />
               </View>
-              <RepoTitle fullName={data.full_name} fontSize={18} />
+              <RepoTitle
+                fullName={data.full_name}
+                fontSize={18}
+                boldText={normalizedSearchValue}
+              />
               <View style={styles.detailsContainer}>
                 <RepoDetail
                   icon={require("../assets/images/eye.png")}
@@ -76,17 +84,15 @@ const RepoDetails: React.FC = () => {
                 />
               </View>
             </View>
-            <Divider />
+            <View style={styles.dividerContainer}>
+              <Divider />
+            </View>
             <View style={styles.descriptionAndLanguages}>
               <Text style={styles.description}>{data.description}</Text>
               <View>
                 <Text style={styles.languagesTitle}>Languages</Text>
                 {languages.length > 0 ? (
-                  languages.map((language) => (
-                    <Text key={language} style={styles.language}>
-                      {language}
-                    </Text>
-                  ))
+                  <Text style={styles.languages}>{languages.join("\n")}</Text>
                 ) : (
                   <Text style={styles.noLanguagesText}>No languages used</Text>
                 )}
@@ -108,8 +114,7 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   header: {
-    gap: 20,
-    padding: 25,
+    marginHorizontal: 30,
     paddingTop: 0,
   },
   iconContainer: {
@@ -122,25 +127,25 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     elevation: 2,
     backgroundColor: colors.white,
+    marginBottom: 20,
   },
   ownerIcon: {
-    height: 70,
-    width: 70,
+    height: 78,
+    width: 78,
     borderRadius: 50,
-  },
-  repoName: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: colors.darkGray,
   },
   detailsContainer: {
     flexDirection: "row",
     width: "100%",
-    gap: 15,
+    gap: 14,
+    marginTop: 12,
+  },
+  dividerContainer: {
+    marginVertical: 24,
   },
   descriptionAndLanguages: {
-    padding: 25,
-    gap: 20,
+    marginHorizontal: 30,
+    gap: 24,
   },
   description: {
     fontSize: 14,
@@ -149,10 +154,11 @@ const styles = StyleSheet.create({
   languagesTitle: {
     fontSize: 14,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 16,
   },
-  language: {
+  languages: {
     fontSize: 14,
+    lineHeight: 16.8,
     color: colors.darkGray,
   },
   noLanguagesText: {

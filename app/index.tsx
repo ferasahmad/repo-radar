@@ -74,11 +74,11 @@ const Index: React.FC = () => {
                 onPress={() =>
                   router.push({
                     pathname: "/repo-details",
-                    params: { repo: JSON.stringify(item) },
+                    params: { repo: JSON.stringify(item), searchValue: query },
                   })
                 }
               >
-                <RepoItem repo={item} />
+                <RepoItem repo={item} searchValue={query} />
               </TouchableOpacity>
             )}
           />
@@ -91,13 +91,14 @@ const Index: React.FC = () => {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    marginTop: 20,
   },
   HeaderAndSearchContainer: {
-    marginHorizontal: 25,
+    marginHorizontal: 30,
+    marginVertical: 24,
+    gap: 24,
   },
   list: {
-    paddingHorizontal: 25,
+    paddingHorizontal: 30,
   },
   loadingIndicator: {
     alignSelf: "center",
