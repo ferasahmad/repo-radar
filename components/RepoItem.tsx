@@ -6,9 +6,10 @@ import RepoTitle from "./RepoTitle";
 
 interface RepoItemProps {
   repo: Repo;
+  searchValue: string;
 }
 
-const RepoItem: React.FC<RepoItemProps> = ({ repo }) => {
+const RepoItem: React.FC<RepoItemProps> = ({ repo, searchValue }) => {
   return (
     <View style={styles.container}>
       <View style={styles.iconAndNameContainer}>
@@ -16,9 +17,17 @@ const RepoItem: React.FC<RepoItemProps> = ({ repo }) => {
           style={styles.ownerIcon}
           source={{ uri: repo.owner.avatar_url }}
         />
-        <RepoTitle fullName={repo.full_name} fontSize={14} />
+        <RepoTitle
+          fullName={repo.full_name}
+          fontSize={14}
+          boldText={searchValue}
+        />
       </View>
-      <Text style={styles.repoDescription}>{repo.description}</Text>
+      {repo.description && (
+        <Text style={styles.repoDescription} numberOfLines={10}>
+          {repo.description}
+        </Text>
+      )}
     </View>
   );
 };
@@ -27,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 16,
     padding: 16,
     gap: 10,
     shadowColor: colors.gray,
@@ -46,9 +55,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     gap: 10,
-  },
-  repoName: {
-    fontWeight: "bold",
   },
   repoDescription: {
     color: colors.darkGray,

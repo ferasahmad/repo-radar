@@ -27,16 +27,16 @@ const styles = StyleSheet.create({
   detailContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 7,
+    gap: 6,
   },
   detailIcon: {
-    height: 20,
-    width: 20,
+    height: 16,
+    width: 16,
     tintColor: colors.gray,
   },
   detailText: {
     color: colors.gray,
-    fontWeight: "500",
+    fontWeight: "600",
     fontSize: 12,
   },
 });

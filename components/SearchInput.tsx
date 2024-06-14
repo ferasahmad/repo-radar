@@ -30,13 +30,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgb(239, 236, 245)",
     borderRadius: 10,
-    paddingHorizontal: 8,
-    gap: 10,
+    padding: 12,
+    gap: 12,
     height: 50,
   },
   icon: {
-    height: 25,
-    width: 25,
+    height: 24,
+    width: 24,
     tintColor: "black",
   },
   input: {
