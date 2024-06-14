@@ -1,34 +1,42 @@
-import { colors } from "@/constants/colors";
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text } from "react-native";
+import { colors } from "@/constants/colors";
+import { escapeRegExp } from "@/utilities/escapeRegExp";
 
-interface RepoTitleProps {
-  fullName: string;
+interface RepoTitleComponentProps {
+  text: string;
+  boldText: string;
   fontSize?: number;
+  numberOfLines?: number;
 }
 
-const RepoTitle: React.FC<RepoTitleProps> = ({ fullName, fontSize = 16 }) => {
-  const [owner, repo] = fullName.split("/");
+const RepoTitle: React.FC<RepoTitleComponentProps> = ({
+  text,
+  boldText,
+  fontSize = 16,
+  numberOfLines,
+}) => {
+  const escapedBoldText = escapeRegExp(boldText);
+  const parts = text.split(new RegExp(`(${escapedBoldText})`, "gi"));
 
   return (
-    <View style={styles.container}>
-      <Text style={[styles.owner, { fontSize }]}>{owner}/</Text>
-      <Text style={[styles.repo, { fontSize }]}>{repo}</Text>
-    </View>
+    <Text numberOfLines={numberOfLines}>
+      {parts.map((part, index) =>
+        part.toLowerCase() === boldText.toLowerCase() ? (
+          <Text
+            key={index}
+            style={{ fontWeight: "bold", fontSize, color: colors.darkGray }}
+          >
+            {part}
+          </Text>
+        ) : (
+          <Text key={index} style={{ fontSize, color: colors.darkGray }}>
+            {part}
+          </Text>
+        )
+      )}
+    </Text>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
-  owner: {
-    color: colors.darkGray,
-  },
-  repo: {
-    color: colors.darkGray,
-    fontWeight: "bold",
-  },
-});
 
 export default RepoTitle;

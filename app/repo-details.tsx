@@ -65,7 +65,7 @@ const RepoDetails: React.FC = () => {
                 />
               </View>
               <RepoTitle
-                fullName={data.full_name}
+                text={data.full_name}
                 fontSize={18}
                 boldText={normalizedSearchValue}
               />

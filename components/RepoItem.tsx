@@ -17,11 +17,14 @@ const RepoItem: React.FC<RepoItemProps> = ({ repo, searchValue }) => {
           style={styles.ownerIcon}
           source={{ uri: repo.owner.avatar_url }}
         />
-        <RepoTitle
-          fullName={repo.full_name}
-          fontSize={14}
-          boldText={searchValue}
-        />
+        <View style={styles.textContainer}>
+          <RepoTitle
+            text={repo.full_name}
+            fontSize={14}
+            boldText={searchValue}
+            numberOfLines={1}
+          />
+        </View>
       </View>
       {repo.description && (
         <Text style={styles.repoDescription} numberOfLines={10}>
@@ -55,6 +58,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     gap: 10,
+  },
+  textContainer: {
+    flexShrink: 1,
   },
   repoDescription: {
     color: colors.darkGray,
